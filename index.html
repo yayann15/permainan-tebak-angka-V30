@@ -1,0 +1,92 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Permainan Cinta untuk Zaza</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+        #result, #nextQuestion, #finalQuestion {
+            display: none;
+        }
+        button {
+            margin: 10px;
+            padding: 10px 20px;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Permainan Tebak Angka</h1>
+<p>Tebak angka dari 1 hingga 10</p>
+<input type="number" id="guess" min="1" max="10">
+<button onclick="checkGuess()">Tebak</button>
+
+<div id="result"></div>
+<div id="nextQuestion">
+    <p>aku boleh tanya gak ?</p>
+    <button onclick="nextQuestion('yes')">Iya</button>
+    <button id="noButton" onclick="nextQuestion('no')">Tidak</button>
+</div>
+<div id="finalQuestion"></div>
+
+<script>
+    let correctNumber = 7;
+    let attempts = 0;
+    let maxAttempts = 3;
+
+    function checkGuess() {
+        let guess = parseInt(document.getElementById('guess').value);
+        attempts++;
+
+        if (guess === correctNumber) {
+            document.getElementById('result').innerHTML = "Terimakasih sudah menjawab dengan angka 7, kenapa 7 ? karna kamu adalah tujuanku.";
+            document.getElementById('result').style.display = 'block';
+            setTimeout(showNextQuestion, 20000);
+        } else if (attempts < maxAttempts) {
+            document.getElementById('result').innerHTML = "Salah, coba lagi!";
+        } else {
+            document.getElementById('result').innerHTML = "Aku bantu ya zaza 😉, jadi jawabannya itu 7 👋🏻";
+            document.getElementById('result').style.display = 'block';
+            setTimeout(showNextQuestion, 20000);
+        }
+    }
+
+    function showNextQuestion() {
+        document.getElementById('result').style.display = 'none';
+        document.getElementById('nextQuestion').style.display = 'block';
+    }
+  function nextQuestion(answer) {
+        if (answer === 'no') {
+            const noButton = document.getElementById('noButton');
+            noButton.style.position = 'absolute';
+            noButton.style.top = Math.random() * 80 + 'vh';
+            noButton.style.left = Math.random() * 80 + 'vw';
+            return;
+        }
+
+        document.getElementById('nextQuestion').style.display = 'none';
+        document.getElementById('finalQuestion').innerHTML = 
+            "Aku mau tanya sekali lagi ke zaza tapi sebelumnya maaf ya kalo kesannya aku memaksa meskipun aku tau kalau zaza belum siap tpi sejujurnya aku cuman memastikan lagi 😌 oke lanjut, jadi kira² boleh gak aku jadi pacar zaza 😄 ?<br>" +
+            "<button onclick=\"finalAnswer('yes')\">Ya</button>" +
+            "<button onclick=\"finalAnswer('no')\">Tidak</button>";
+        document.getElementById('finalQuestion').style.display = 'block';
+    }
+
+    function finalAnswer(answer) {
+        if (answer === 'yes') {
+            document.getElementById('finalQuestion').innerHTML = "haii sayang aku gak menyangka kalau kamu bakal nerima aku tapii aku disini akan berusaha dalam menjaga hati agar kita tetap akan sama² setia dalam hubungan kita*";
+        } else {
+            document.getElementById('finalQuestion').innerHTML = "saya berterimakasih atas semua yang sudah zaza perlihatkan kepada saya dari mulai tatapan manisnya, senyuman manisnya, kebaikan tiada taranya, ketulusannya dalam berteman, respon yang selalu baik, pemalu yang lucu, humoris , dan aku yayan sangat bersyukur bisa mencintai zaza dengan secukupnya.";
+        }
+    }
+</script>
+
+</body>
+</html>
